@@ -23,7 +23,8 @@ public class Sportd_dao {
 		Transaction tx =session.beginTransaction();
 		session.save(dto);
 		tx.commit();
-		
+/*		sysout
+*/		
 		
 		
 
