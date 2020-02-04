@@ -1,0 +1,19 @@
+in debug mode 
+
+f6 for executing nxt line
+f8 to comeoutof method
+inspecting used to view d value
+
+bean utils -- cpy 1 object to another
+BeanUtils.copyProperties(bookingDTo,entity) -----> (Source,destinaton)
+
+
+exceptions
+
+controller returns only controller exception
+service throws only servie exception
+dao throws only dao excdeption
+
+system.err.println(e.getMessage());--->instead of stacktrace we r going for loggers.(it will print in red colour)
+
+DTO--Entity Segregationsdg
