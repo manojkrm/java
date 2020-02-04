@@ -1,0 +1,90 @@
+package com.xworkz.railway.controller.booking;
+
+import com.xworkz.railway.dto.booking.BookingDTO;
+import com.xworkz.railway.service.booking.BookingService;
+import java.io.PrintStream;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+
+
+
+@Component
+@RequestMapping({"/"})
+public class BookingController
+{
+  @Autowired
+  @Qualifier("bookingServiceImpl")
+  private BookingService bookingService;
+  
+  public BookingController()
+  {
+    System.out.println("Created \t" + getClass().getSimpleName());
+  }
+  
+  @RequestMapping(value={"/bookticket.do"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+  public String onBooking(@ModelAttribute BookingDTO bookingDTO)
+  {
+    System.out.println("invoked booking \t");
+    System.out.println("booking dto" + bookingDTO);
+    boolean decide = bookingService.bookTicket(bookingDTO);
+    if (decide) {
+      System.out.println("booking success");
+    } else {
+      System.out.println("booking failure");
+    }
+    return "/Booking.jsp";
+  }
+}
+--------------------------------------------------------------------------------------------------------------------
+package com.xworkz.railway.service.booking;
+
+import com.xworkz.railway.dto.booking.BookingDTO;
+
+public abstract interface BookingService
+{
+  public abstract boolean bookTicket(BookingDTO paramBookingDTO);
+}
+-----------------------------------------------------------------------------------------------------------------------------
+package com.xworkz.railway.service.booking;
+
+import com.xworkz.railway.dto.booking.BookingDTO;
+import java.io.PrintStream;
+
+@org.springframework.stereotype.Component("serviceImpl")
+public class BookingServiceImpl implements BookingService
+{
+  public BookingServiceImpl()
+  {
+    System.out.println("Created \t" + getClass().getSimpleName());
+  }
+  
+  public boolean bookTicket(BookingDTO bookingDTO) {
+    System.out.println("invoked book ticket service");
+    if (bookingDTO != null) {
+      System.out.println("valid data, can save");
+      return true;
+    }
+    System.out.println("invalid data, cannot save");
+    return false;
+  }
+}
+----------------------------------------------------------------------------------------------------------------------------
+package com.xworkz.railway.service.booking;
+
+import com.xworkz.railway.dto.booking.BookingDTO;
+
+@org.springframework.stereotype.Component("bookingServiceImpl")
+public class BookingServiceImpl2 implements BookingService
+{
+  public BookingServiceImpl2() {}
+  
+  public boolean bookTicket(BookingDTO bookingDTO)
+  {
+    System.out.println("new impl of service");
+    return false;
+  }
+}
